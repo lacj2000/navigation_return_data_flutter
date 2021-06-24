@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:named_navigation_flutter/SecondScreen.dart';
 
 void main() {
-  runApp(MaterialApp(title: "Basic Navigation", home: FirstScreen()));
+  runApp(MaterialApp(
+    title: "Basic Navigation",
+    initialRoute: '/',
+    routes: {
+      '/': (context) => FirstScreen(),
+      '/second': (context) => SecondScreen()
+    },
+  ));
 }
 
 class FirstScreen extends StatelessWidget {
@@ -16,8 +23,7 @@ class FirstScreen extends StatelessWidget {
         child: ElevatedButton(
           child: Text('Open second screen'),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SecondScreen()));
+            Navigator.pushNamed(context, '/second');
           },
         ),
       ),
