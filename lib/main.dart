@@ -1,39 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:named_navigation_flutter/ScreenArguments.dart';
-import 'package:named_navigation_flutter/SecondScreen.dart';
-import 'package:named_navigation_flutter/ThirdScreen.dart';
+import 'package:named_navigation_flutter/SelectionScreen.dart';
 
 void main() {
   runApp(MaterialApp(
     title: "Basic Navigation",
     initialRoute: '/',
     routes: {
-      '/': (context) => FirstScreen(),
-      '/second': (context) => SecondScreen(),
-      ThirdScreen.route: (context) => ThirdScreen(),
+      '/': (context) => HomeScreen(),
+      '/selection': (context) => SelectionScreen(),
     },
   ));
 }
 
-class FirstScreen extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('First Screen'),
+        title: Text('Home Page'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(
-              context,
-              ThirdScreen.route,
-              arguments: ScreenArguments("Olá pão",
-                  "O dia não passa de uma simples duvida existencial"),
-            );
-          },
-          child: Text('Open third screen'),
-        ),
+        child: SelectionButton(),
+      ),
+    );
+  }
+}
+
+class SelectionButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      child: Text("Get Value, any value"),
+      onPressed: () => {_navigateAndDisplaySelection(context)},
+    );
+  }
+
+  _navigateAndDisplaySelection(BuildContext context) async {
+    final result = await Navigator.pushNamed(context, '/selection');
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("$result"),
       ),
     );
   }
