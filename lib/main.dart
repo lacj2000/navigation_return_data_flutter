@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:named_navigation_flutter/ScreenArguments.dart';
 import 'package:named_navigation_flutter/SecondScreen.dart';
+import 'package:named_navigation_flutter/ThirdScreen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -7,7 +9,8 @@ void main() {
     initialRoute: '/',
     routes: {
       '/': (context) => FirstScreen(),
-      '/second': (context) => SecondScreen()
+      '/second': (context) => SecondScreen(),
+      ThirdScreen.route: (context) => ThirdScreen(),
     },
   ));
 }
@@ -21,10 +24,15 @@ class FirstScreen extends StatelessWidget {
       ),
       body: Center(
         child: ElevatedButton(
-          child: Text('Open second screen'),
           onPressed: () {
-            Navigator.pushNamed(context, '/second');
+            Navigator.pushNamed(
+              context,
+              ThirdScreen.route,
+              arguments: ScreenArguments("Olá pão",
+                  "O dia não passa de uma simples duvida existencial"),
+            );
           },
+          child: Text('Open third screen'),
         ),
       ),
     );
